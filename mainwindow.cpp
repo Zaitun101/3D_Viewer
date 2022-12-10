@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "glwidget.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
 
@@ -15,8 +15,3 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::num_pressed()
-{
-    qDebug() << ui->doubleSpinBox->text();
-    scale = ui->doubleSpinBox->text().toDouble();
-}

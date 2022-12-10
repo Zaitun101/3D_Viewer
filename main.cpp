@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "glwidget.h"
 
 #include <QApplication>
 
