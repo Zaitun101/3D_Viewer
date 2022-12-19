@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include <QDebug>
 
+
 GLWidget::GLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
@@ -10,29 +11,27 @@ GLWidget::GLWidget(QWidget *parent) :
     this->dots_width = 2.0;
     this->zPos = -2.0;
     this->line = false;
-    connect(  &timer,  SIGNAL(timeout()), this, SLOT(updateGL()) );
     timer.start(16);
 }
 
 
+
 void GLWidget::initializeGL() {
     glEnable(GL_DEPTH_TEST);
-    }
+}
 
 
-    void GLWidget::resizeGL(int w, int h) {
+   void GLWidget::resizeGL(int w, int h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-//    glFrustum(-10, 10, -10, 10, 1, 10);
+//    glFrustum(-10, 10, -10, 10, 1.5, 100);
     glOrtho(-12, 12, -12, 12, -12, 12);
 }
 
 
 void GLWidget::paintGL() {
-
-//    ang += 0.5;
-    glClearColor(0,0,0,0);
+    glClearColor(bg_color.redF(), bg_color.greenF(), bg_color.blueF(),0);
     glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -47,36 +46,21 @@ void GLWidget::paintGL() {
 
 void GLWidget::mousePressEvent(QMouseEvent * mo) {
     mPos = mo->pos();
+    xRot1 = xRot;
+    yRot1 = yRot;
 }
 
 
 void GLWidget::mouseMoveEvent(QMouseEvent * mo) {
-    xRot=1/M_PI*(mo->pos().y() - mPos.y());
-    yRot=1/M_PI*(mo->pos().x() - mPos.x());
+    xRot = xRot1 + 1/M_PI*(mo->pos().y() - mPos.y());
+    yRot = yRot1 + 1/M_PI*(mo->pos().x() - mPos.x());
     updateGL();
 }
 
 
 
 void GLWidget::drawCube() {
-//    float ver_cub[] = {
-//        7.889562 ,1.150329 ,-2.173651,
-//        2.212808 ,1.150329 ,-3.230414,
-//        0.068023 ,1.150328 ,-7.923502,
-//        -2.151306 ,1.150329 ,-2.254857,
-//        -7.817406 ,1.150328 ,-2.261558,
-//        -3.523133, 1.150328, 1.888122,
-//        -4.869315, 1.150328, 6.987552,
-//        -0.006854, 1.150329, 4.473047,
-//        4.838127, 1.150328, 7.041885,
-//        3.538153, 1.150329, 1.927652,
-//        0.033757 ,0.000000 ,-0.314657,
-//        0.035668 ,2.269531 ,-0.312831,
-//    };
 
-//    int index_cub[] = {
-//        10, 11
-//    };
 
     float ver_cub[] = {
         0 ,0, 2,
@@ -99,15 +83,6 @@ void GLWidget::drawCube() {
 
 
 
-
-//    float color_arr[] = {
-//        1, 1, 1, 0    // front
-////        0,0,1,  0,0,1,  0,0,1,  0,0,1,    // back
-////        1,1,0,  1,1,0,  1,1,0,  1,1,0,    // left
-////        0,1,1,  0,1,1,  0,1,1,  0,1,1,    // right
-////        1,0,1,  1,0,1,  1,0,1,  1,0,1,    // down
-////        1,1,1,  1,1,1,  1,1,1,  1,1,1     // down
-//    };
     int count = 60;
     int line_value = 0xFFFF;
     if (line)
@@ -116,14 +91,15 @@ void GLWidget::drawCube() {
     glEnable(GL_LINE_STIPPLE);
     glVertexPointer(3, GL_FLOAT, 0, &ver_cub);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glLineWidth(line_width);
+    glEnable(GL_POINT_SMOOTH);
     glPointSize(dots_width);
-//    glColorPointer(3, GL_FLOAT, 0, &color_arr);
-    glColor3d(1, 1, 0);
-//    glEnableClientState(GL_COLOR_ARRAY);
-        glDrawElements(GL_POINTS, count, GL_UNSIGNED_INT, index_cub);
-//    glDrawArrays(GL_POINTS, 0, 8);
-        glDrawElements(GL_LINES, count, GL_UNSIGNED_INT, index_cub);
+    glColor3d(dots_color.redF(), dots_color.greenF(), dots_color.blueF());
+    glDrawElements(GL_POINTS, count, GL_UNSIGNED_INT, index_cub);
+    glLineWidth(line_width);
+    glColor3d(ribs_color.redF(), ribs_color.greenF(), ribs_color.blueF());
+    glDrawElements(GL_LINES, count, GL_UNSIGNED_INT, index_cub);
     glDisableClientState(GL_VERTEX_ARRAY);
+    glDisable(GL_POINT_SMOOTH);
+    glDisable(GL_LINE_STIPPLE);
 }
 

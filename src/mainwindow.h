@@ -23,8 +23,6 @@ private slots:
 
     void on_dots_valueChanged(double arg1);
 
-    void on_file_released();
-
     void on_checkBox_clicked(bool checked);
 
     void on_xPos_valueChanged(double arg1);
@@ -32,6 +30,14 @@ private slots:
     void on_yPos_valueChanged(double arg1);
 
     void on_zPos_valueChanged(double arg1);
+
+    void on_bg_color_clicked();
+
+    void on_ribs_color_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_file_released();
 
 private:
     Ui::MainWindow *ui;

@@ -27,14 +27,24 @@
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer_3">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Файл не выбран</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_4">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>1</height>
+            <height>100</height>
            </size>
           </property>
          </spacer>
@@ -42,7 +52,7 @@
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Position</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Position:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -69,6 +79,44 @@
            <widget class="QDoubleSpinBox" name="zPos">
             <property name="minimum">
              <double>-99.989999999999995</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>100</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="bg_color">
+          <property name="text">
+           <string>Выбрать цвет фона</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QPushButton" name="ribs_color">
+            <property name="text">
+             <string>Цвет граней</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton">
+            <property name="text">
+             <string>Цвет точек</string>
             </property>
            </widget>
           </item>
@@ -177,7 +225,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>200</height>
+            <height>150</height>
            </size>
           </property>
          </spacer>

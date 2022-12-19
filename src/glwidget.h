@@ -7,14 +7,15 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <QTimer>
-
+#include <QColorDialog>
 
 
 class GLWidget : public QGLWidget
 {
     Q_OBJECT
 private:
-    float xRot, yRot, zRot;
+    float xRot = 0.0, yRot = 0.0, zRot;
+    float xRot1 = 0, yRot1 = 0;
     QPoint mPos;
     QTimer timer;
 
@@ -33,6 +34,9 @@ public:
     double dots_width;
     double xPos, yPos, zPos, ang;
     int line;
+    QColor ribs_color = Qt::green;
+    QColor bg_color;
+    QColor dots_color = Qt::red;
 };
 
 
