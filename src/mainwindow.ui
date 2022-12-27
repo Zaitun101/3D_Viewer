@@ -64,14 +64,20 @@
           <item>
            <widget class="QDoubleSpinBox" name="xPos">
             <property name="minimum">
-             <double>-99.989999999999995</double>
+             <double>-999.990000000000009</double>
+            </property>
+            <property name="maximum">
+             <double>999.990000000000009</double>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QDoubleSpinBox" name="yPos">
             <property name="minimum">
-             <double>-99.989999999999995</double>
+             <double>-999.990000000000009</double>
+            </property>
+            <property name="maximum">
+             <double>999.990000000000009</double>
             </property>
            </widget>
           </item>

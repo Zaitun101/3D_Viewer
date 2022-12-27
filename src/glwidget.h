@@ -37,6 +37,8 @@ public:
     QColor ribs_color = Qt::green;
     QColor bg_color;
     QColor dots_color = Qt::red;
+    QString filepath;
+    void free_mem();
 };
 
 

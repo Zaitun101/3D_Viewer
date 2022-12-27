@@ -44,6 +44,9 @@ void MainWindow::on_file_released()
     QStringList tmp = file_path.split('/');
     if (tmp.size()!= 1) {
         this->ui->label_5->setText(tmp[tmp.size() - 1]);
+        this->ui->GLwidget->filepath = file_path;
+        this->ui->GLwidget->free_mem();
+        this->ui->GLwidget->updateGL();
     }
 }
 
