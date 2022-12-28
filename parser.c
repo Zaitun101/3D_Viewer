@@ -2,16 +2,16 @@
 
 // int main() {
 //   array_data obj = {0, 0, 0, 0, 0};
-//   allocate_memory(&obj, "heart.obj");
-//   array(&obj, "heart.obj");
-//   index1(&obj, "heart.obj");
-//   for (int i = 0; i <= obj.count_vert - 1; i++) {
-//     printf("%f, ", obj.vertexes[i]);
-//   }
-//   printf("\n\n");
-//   for (int i = 0; i <= obj.count_facets - 1; i++) {
-//     printf("%d, ", obj.facets[i]);
-//   }
+//   allocate_memory(&obj, "../../workdir/lamp.obj");
+//   array(&obj, "../../workdir/lamp.obj");
+//   index1(&obj, "../../workdir/lamp.obj");
+//   // for (int i = 0; i <= obj.count_vert - 1; i++) {
+//   //   printf("%f, ", obj.vertexes[i]);
+//   // }
+//   // printf("\n\n");
+//   // for (int i = 0; i <= obj.count_facets - 1; i++) {
+//   //   printf("%d, ", obj.facets[i]);
+//   // }
 // }
 
 int allocate_memory(array_data *obj, char *filepath) {
@@ -43,6 +43,7 @@ int count_facetes_token(char *str) {
 }
 
 int array(array_data *obj, char *filepath) {
+  obj->max_vert = 0;
   int err = 0;
   FILE *file;
   char str[512];
@@ -60,11 +61,11 @@ int array(array_data *obj, char *filepath) {
               k++;
               i++;
             }
-            char *tmp;
             if (*buf != 0) {
-              obj->vertexes[num] = strtod(buf, &tmp);
+              obj->vertexes[num] = atof(buf);
               if (fabs(obj->vertexes[num]) > obj->max_vert)
                 obj->max_vert = fabs(obj->vertexes[num]);
+
               num++;
             }
             *buf = 0;
@@ -79,6 +80,7 @@ int array(array_data *obj, char *filepath) {
   } else {
     err = 1;
   }
+  scale(obj, 100 / obj->max_vert, 1);
   return err;
 }
 
@@ -103,8 +105,7 @@ int index1(array_data *obj, char *filepath) {
                 i++;
               }
             }
-            char *tmp;
-            int number = strtod(buf, &tmp) - 1;
+            int number = atof(buf) - 1;
             if (*buf != 0) {
               if (check == 0) {
                 if (first != -1) {
@@ -133,4 +134,66 @@ int index1(array_data *obj, char *filepath) {
     err = 1;
   }
   return err;
+}
+
+int scale(array_data *obj, double scale, double prev_scale) {
+  int k = 0;
+  for (int i = 0; i <= obj->count_vert; i++) {
+    if (k == 0 || k == 1 || 2) {
+      obj->vertexes[i] /= prev_scale;
+      obj->vertexes[i] *= scale;
+    }
+    k++;
+    if (k == 3) k = 0;
+  }
+  return 1;
+}
+
+int move_obj(array_data *obj, double xPos, double prev_xPos, double yPos,
+             double prev_yPos, double zPos, double prev_zPos) {
+  int k = 0;
+  for (int i = 0; i <= obj->count_vert; i++) {
+    if (k == 0) {
+      obj->vertexes[i] -= prev_xPos;
+      obj->vertexes[i] += xPos;
+    } else if (k == 1) {
+      obj->vertexes[i] -= prev_yPos;
+      obj->vertexes[i] += yPos;
+    } else if (k == 2) {
+      obj->vertexes[i] -= prev_zPos;
+      obj->vertexes[i] += zPos;
+    }
+    k++;
+    if (k == 3) k = 0;
+  }
+  return 1;
+}
+
+int rot_x(array_data *obj, double x_rot) {
+  for (int i = 0; i < obj->count_vert; i += 3) {
+    double temp_y = obj->vertexes[i + 1];
+    double temp_z = obj->vertexes[i + 2];
+    obj->vertexes[i + 1] = cos(x_rot) * temp_y - sin(x_rot) * temp_z;
+    obj->vertexes[i + 2] = sin(x_rot) * temp_y + cos(x_rot) * temp_z;
+  }
+}
+
+int rot_y(array_data *obj, double y_rot) {
+  for (int i = 0; i < obj->count_vert; i += 3) {
+    double temp_x = obj->vertexes[i];
+    double temp_z = obj->vertexes[i + 2];
+
+    obj->vertexes[i] = cos(y_rot) * temp_x + sin(y_rot) * temp_z;
+    obj->vertexes[i + 2] = -sin(y_rot) * temp_x + cos(y_rot) * temp_z;
+  }
+}
+
+int rot_z(array_data *obj, double z_rot) {
+  for (int i = 0; i < obj->count_vert; i += 3) {
+    double temp_x = obj->vertexes[i];
+    double temp_y = obj->vertexes[i + 1];
+
+    obj->vertexes[i] = cos(z_rot) * temp_x - sin(z_rot) * temp_y;
+    obj->vertexes[i + 1] = sin(z_rot) * temp_x + cos(z_rot) * temp_y;
+  }
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>821</width>
-    <height>657</height>
+    <width>1005</width>
+    <height>814</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,6 +35,29 @@
            <set>Qt::AlignCenter</set>
           </property>
          </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item>
          <spacer name="verticalSpacer_4">
@@ -85,6 +108,89 @@
            <widget class="QDoubleSpinBox" name="zPos">
             <property name="minimum">
              <double>-99.989999999999995</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Вращение:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QDoubleSpinBox" name="x_rot">
+            <property name="minimum">
+             <double>-99.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.150000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="y_rot">
+            <property name="minimum">
+             <double>-99.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.150000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QDoubleSpinBox" name="z_rot">
+            <property name="minimum">
+             <double>-99.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="value">
+             <double>0.150000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPushButton" name="x_rot_button">
+            <property name="text">
+             <string>Rotate X</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="y_rot_button">
+            <property name="text">
+             <string>Rotate Y</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="text">
+             <string>Rotate Z</string>
             </property>
            </widget>
           </item>
@@ -165,6 +271,9 @@
           <property name="minimum">
            <double>0.250000000000000</double>
           </property>
+          <property name="maximum">
+           <double>1000.990000000000009</double>
+          </property>
           <property name="singleStep">
            <double>0.500000000000000</double>
           </property>
@@ -212,6 +321,62 @@
            <double>2.000000000000000</double>
           </property>
          </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="font">
+             <font>
+              <pointsize>13</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Вершины:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBox">
+            <item>
+             <property name="text">
+              <string>Отсутствует</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Круг</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Квадрат</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string/>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>10</width>
+              <height>2</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox">
@@ -267,7 +432,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>821</width>
+     <width>1005</width>
      <height>22</height>
     </rect>
    </property>
