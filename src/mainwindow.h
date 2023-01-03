@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "../GIFCreation/gifImage/qgifimage.h"
+#include <QDebug>
+#include "glwidget.h"
+#include "ui_mainwindow.h"
+#include <QImage>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,6 +20,8 @@ class MainWindow : public QMainWindow {
  public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+  int gif = 0;
+  QVector<QImage> mas_image;
 
  private slots:
   void on_scale_valueChanged(double arg1);
@@ -53,7 +60,25 @@ class MainWindow : public QMainWindow {
 
   void on_comboBox_currentIndexChanged(int index);
 
- private:
+  void on_comboBox_2_currentIndexChanged(int index);
+
+  void on_save_exit_clicked();
+
+  void on_load_settings_released();
+
+  void on_doubleSpinBox_valueChanged(double arg1);
+
+  void on_doubleSpinBox_2_valueChanged(double arg1);
+
+  void on_save_jpeg_released();
+
+  void on_start_record_released();
+
+  void on_save_record_released();
+
+  void on_save_bmp_released();
+
+private:
   Ui::MainWindow *ui;
 };
 

@@ -16,6 +16,6 @@ int count_facetes_token(char *str);
 int scale(array_data *obj, double scale, double prev_scale);
 int move_obj(array_data *obj, double xPos, double prev_xPos, double yPos,
              double prev_yPos, double zPos, double prev_zPos);
-int rot_x(array_data *obj, double x_rot);
-int rot_y(array_data *obj, double y_rot);
-int rot_z(array_data *obj, double z_rot);
+void rot_x(array_data *obj, double x_rot);
+void rot_y(array_data *obj, double y_rot);
+void rot_z(array_data *obj, double z_rotvoid);

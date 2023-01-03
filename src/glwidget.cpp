@@ -1,18 +1,13 @@
 #include "glwidget.h"
-
 #include <QDebug>
-
 #include "mainwindow.h"
 
-GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent) {
-  this->scale = 1.0;
-  this->line_width = 1.0;
-  this->dots_width = 2.0;
-  this->zPos = -2.0;
-  this->line = false;
-  timer.start(16);
-}
 
+
+GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent) {
+    settings = new QSettings("../settings.conf",
+                               QSettings::IniFormat);
+}
 
 void GLWidget::free_mem() {
   std::setlocale(LC_NUMERIC, "POSIX");
@@ -25,7 +20,7 @@ void GLWidget::free_mem() {
     obj.count_vert = 0;
   }
   QByteArray str_bit = filepath.toLocal8Bit();
-  char *res_str = str_bit.data();
+  res_str = str_bit.data();
   if (res_str != NULL) {
     allocate_memory(&obj, res_str);
     array(&obj, res_str);
@@ -37,35 +32,25 @@ void GLWidget::initializeGL() { glEnable(GL_DEPTH_TEST); }
 
 void GLWidget::resizeGL(int w, int h) {
   glViewport(0, 0, w, h);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  //    glFrustum(-10, 10, -10, 10, 1.5, 100);
-  glOrtho(-150, 150, -150, 150, -150, 150);
-  //  glOrtho(-12, 12, -12, 12, -12, 12);
-}
-
-void GLWidget::paintGL() {
-  glClearColor(bg_color.redF(), bg_color.greenF(), bg_color.blueF(), 0);
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-  //  glScaled(scale, scale, 1);
-  //  glRotatef(xRot, 1, 0, 0);
-  //  glRotatef(yRot, 0, 1, 0);
-
-  drawCube();
 }
 
 void GLWidget::projection() {
-  // Создаем проекцию
-  glMatrixMode(GL_PROJECTION);  // ортоганальая поекция
-  glLoadIdentity();             // загружаем матрицу
-  if (0) {
-    // Establish clipping volume (left, right, bottom, top, near, far)
-    glFrustum(-1, 1, -1, 1, 1, 99999);  //  перспективная проекция
-  } else {
-    glOrtho(-1, 1, -1, 1, -1, 99999);  // отоганальная
-  }
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    if (proj == 0) {
+        glOrtho(-1, 1, -1, 1, -15, 15);
+    } else {
+        glFrustum(-1, 1, -1, 1, tr1, tr2);
+    }
+}
+
+void GLWidget::paintGL() {
+  projection();
+  glClearColor(bg_red, bg_green, bg_blue, 0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  drawCube();
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *mo) { mPos = mo->pos(); }
@@ -109,13 +94,49 @@ void GLWidget::drawCube() {
   glEnableClientState(GL_VERTEX_ARRAY);
   if (dot_type == 1) glEnable(GL_POINT_SMOOTH);
   glPointSize(dots_width);
-  glColor3d(dots_color.redF(), dots_color.greenF(), dots_color.blueF());
+  glColor3d(dots_red, dots_green, dots_blue);
   if (dot_type != 0)
     glDrawElements(GL_POINTS, count, GL_UNSIGNED_INT, obj.facets);
   glLineWidth(line_width);
-  glColor3d(ribs_color.redF(), ribs_color.greenF(), ribs_color.blueF());
+  glColor3d(line_red, line_green, line_blue);
   glDrawElements(GL_LINES, count, GL_UNSIGNED_INT, obj.facets);
   glDisableClientState(GL_VERTEX_ARRAY);
   if (dot_type == 1) glDisable(GL_POINT_SMOOTH);
   glDisable(GL_LINE_STIPPLE);
+}
+
+void GLWidget::save_settings() {
+    settings->setValue("line_red", line_red);
+    settings->setValue("line_green", line_green);
+    settings->setValue("line_blue", line_blue);
+    settings->setValue("dots_red", dots_red);
+    settings->setValue("dots_green", dots_green);
+    settings->setValue("dots_blue", dots_blue);
+    settings->setValue("bg_red", bg_red);
+    settings->setValue("bg_green", bg_green);
+    settings->setValue("bg_blue", bg_blue);
+    settings->setValue("line_type", line);
+    settings->setValue("dots_type", dot_type);
+    settings->setValue("line_width", line_width);
+    settings->setValue("dots_width", dots_width);
+    settings->setValue("proj", proj);
+    settings->setValue("file_path", filepath);
+}
+
+void GLWidget::load_settings(){
+    line_red = settings->value("line_red", line_red).toFloat();
+    line_green = settings->value("line_green", line_green).toFloat();
+    line_blue = settings->value("line_blue", line_blue).toFloat();
+    dots_red = settings->value("dots_red", dots_red).toFloat();
+    dots_green = settings->value("dots_green", dots_green).toFloat();
+    dots_blue = settings->value("dots_blue", dots_blue).toFloat();
+    bg_red = settings->value("bg_red", bg_red).toFloat();
+    bg_green = settings->value("bg_green", bg_green).toFloat();
+    bg_blue = settings->value("bg_blue", bg_blue).toFloat();
+    line = settings->value("line_type", line).toInt();
+    dot_type = dot_type = settings->value("dots_type", dot_type).toInt();
+    line_width = settings->value("line_width", line_width).toInt();
+    dots_width = settings->value("dots_width", dots_width).toInt();
+    proj = settings->value("proj", proj).toInt();
+    filepath = settings->value("file_path", filepath).toString();
 }

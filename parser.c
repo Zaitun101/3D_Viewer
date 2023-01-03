@@ -80,7 +80,7 @@ int array(array_data *obj, char *filepath) {
   } else {
     err = 1;
   }
-  scale(obj, 100 / obj->max_vert, 1);
+  scale(obj, 1 / obj->max_vert, 1);
   return err;
 }
 
@@ -169,7 +169,7 @@ int move_obj(array_data *obj, double xPos, double prev_xPos, double yPos,
   return 1;
 }
 
-int rot_x(array_data *obj, double x_rot) {
+void rot_x(array_data *obj, double x_rot) {
   for (int i = 0; i < obj->count_vert; i += 3) {
     double temp_y = obj->vertexes[i + 1];
     double temp_z = obj->vertexes[i + 2];
@@ -178,7 +178,7 @@ int rot_x(array_data *obj, double x_rot) {
   }
 }
 
-int rot_y(array_data *obj, double y_rot) {
+void rot_y(array_data *obj, double y_rot) {
   for (int i = 0; i < obj->count_vert; i += 3) {
     double temp_x = obj->vertexes[i];
     double temp_z = obj->vertexes[i + 2];
@@ -188,7 +188,7 @@ int rot_y(array_data *obj, double y_rot) {
   }
 }
 
-int rot_z(array_data *obj, double z_rot) {
+void rot_z(array_data *obj, double z_rot) {
   for (int i = 0; i < obj->count_vert; i += 3) {
     double temp_x = obj->vertexes[i];
     double temp_y = obj->vertexes[i + 1];
