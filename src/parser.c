@@ -1,10 +1,10 @@
 #include "parser.h"
 
 // int main() {
-//   array_data obj = {0, 0, 0, 0, 0};
-//   allocate_memory(&obj, "../../workdir/lamp.obj");
-//   array(&obj, "../../workdir/lamp.obj");
-//   index1(&obj, "../../workdir/lamp.obj");
+//   // array_data obj = {0, 0, 0, 0, 0};
+//   // allocate_memory(&obj, "../obj/cube.obj");
+//   // array(&obj, "../obj/cube.obj");
+//   // index1(&obj, "../obj/cube.obj");
 //   // for (int i = 0; i <= obj.count_vert - 1; i++) {
 //   //   printf("%f, ", obj.vertexes[i]);
 //   // }
@@ -12,6 +12,20 @@
 //   // for (int i = 0; i <= obj.count_facets - 1; i++) {
 //   //   printf("%d, ", obj.facets[i]);
 //   // }
+//   // free(obj.facets);
+//   // free(obj.vertexes);
+//   int test_array[60] = {0, 6, 6, 4, 4, 0, 0, 2, 2, 6, 6, 0, 0, 3, 3,
+//                         2, 2, 0, 0, 1, 1, 3, 3, 0, 2, 7, 7, 6, 6, 2,
+//                         2, 3, 3, 7, 7, 2, 4, 6, 6, 7, 7, 4, 4, 7, 7,
+//                         5, 5, 4, 0, 4, 4, 5, 5, 0, 0, 5, 5, 1, 1, 0};
+//   char *file_path = "../obj/cube.obj";
+//   array_data obj = {0, 0, 0, 0, 0};
+//   allocate_memory(&obj, file_path);
+//   index1(&obj, file_path);
+//   printf("%d", obj.count_facets);
+//   for (int i = 0; i < obj.count_facets; i++) {
+//     printf("%d - %d \n", obj.facets[i], test_array[i]);
+//   }
 // }
 
 int allocate_memory(array_data *obj, char *filepath) {
@@ -27,6 +41,7 @@ int allocate_memory(array_data *obj, char *filepath) {
       }
     }
     obj->count_facets *= 2;
+    fclose(file);
   } else {
     printf("He удалось открыть файл");
     err = 1;
@@ -80,7 +95,7 @@ int array(array_data *obj, char *filepath) {
   } else {
     err = 1;
   }
-  scale(obj, 1 / obj->max_vert, 1);
+  change_scale(obj, 1 / obj->max_vert, 1);
   return err;
 }
 
@@ -136,21 +151,15 @@ int index1(array_data *obj, char *filepath) {
   return err;
 }
 
-int scale(array_data *obj, double scale, double prev_scale) {
-  int k = 0;
-  for (int i = 0; i <= obj->count_vert; i++) {
-    if (k == 0 || k == 1 || 2) {
-      obj->vertexes[i] /= prev_scale;
-      obj->vertexes[i] *= scale;
-    }
-    k++;
-    if (k == 3) k = 0;
+void change_scale(array_data *obj, double scale, double prev_scale) {
+  for (int i = 0; i < obj->count_vert; i++) {
+    obj->vertexes[i] /= prev_scale;
+    obj->vertexes[i] *= scale;
   }
-  return 1;
 }
 
-int move_obj(array_data *obj, double xPos, double prev_xPos, double yPos,
-             double prev_yPos, double zPos, double prev_zPos) {
+void move_obj(array_data *obj, double xPos, double prev_xPos, double yPos,
+              double prev_yPos, double zPos, double prev_zPos) {
   int k = 0;
   for (int i = 0; i <= obj->count_vert; i++) {
     if (k == 0) {
@@ -166,7 +175,6 @@ int move_obj(array_data *obj, double xPos, double prev_xPos, double yPos,
     k++;
     if (k == 3) k = 0;
   }
-  return 1;
 }
 
 void rot_x(array_data *obj, double x_rot) {

@@ -75,7 +75,7 @@
         <item>
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Position:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Перемещение:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -185,21 +185,21 @@
           <item>
            <widget class="QPushButton" name="x_rot_button">
             <property name="text">
-             <string>Rotate X</string>
+             <string>По X</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="y_rot_button">
             <property name="text">
-             <string>Rotate Y</string>
+             <string>По Y</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_2">
             <property name="text">
-             <string>Rotate Z</string>
+             <string>По Z</string>
             </property>
            </widget>
           </item>
@@ -438,8 +438,8 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>93</width>
-            <height>12</height>
+            <width>89</width>
+            <height>51</height>
            </size>
           </property>
          </spacer>
@@ -472,6 +472,27 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="font">
+           <font>
+            <family>Ubuntu</family>
+            <pointsize>11</pointsize>
+            <italic>true</italic>
+            <underline>false</underline>
+            <strikeout>false</strikeout>
+            <stylestrategy>PreferAntialias</stylestrategy>
+            <kerning>true</kerning>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ed333b;&quot;&gt;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="verticalSpacer">

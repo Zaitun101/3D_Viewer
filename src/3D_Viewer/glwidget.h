@@ -6,9 +6,9 @@
 
 #include <QColorDialog>
 #include <QGLWidget>
+#include <QSettings>
 #include <QWidget>
 #include <QtOpenGL/QtOpenGL>
-#include <QSettings>
 
 extern "C" {
 #include <../parser.h>
@@ -16,18 +16,18 @@ extern "C" {
 
 class GLWidget : public QGLWidget {
   Q_OBJECT
- private:
+private:
   QSettings *settings;
   QPoint mPos;
   void draw();
   void mousePressEvent(QMouseEvent *) override;
   void mouseMoveEvent(QMouseEvent *) override;
+  void wheelEvent(QWheelEvent *) override;
   void initializeGL() override;
   void resizeGL(int w, int h) override;
   void paintGL() override;
 
- public:
-
+public:
   GLWidget(QWidget *parent = 0);
   void free_mem();
   void projection();
@@ -58,4 +58,4 @@ class GLWidget : public QGLWidget {
   double start_y;
 };
 
-#endif  // GLWIDGET_H
+#endif // GLWIDGET_H

@@ -1,13 +1,14 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include "../../GIFCreation/gifImage/qgifimage.h"
 #include <QDebug>
+#include <QImage>
+#include <QMainWindow>
+#include <QTimer>
+
+#include "../../GIFCreation/gifImage/qgifimage.h"
 #include "glwidget.h"
 #include "ui_mainwindow.h"
-#include <QImage>
-#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,14 +19,14 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
- public:
+public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
   int is_recording = 0;
   QTimer *record_time;
   QVector<QImage> gif;
   float time;
- private slots:
+private slots:
   void on_scale_valueChanged(double arg1);
 
   void on_line_valueChanged(double arg1);
@@ -82,4 +83,4 @@ private:
   Ui::MainWindow *ui;
 };
 
-#endif  // MAINWINDOW_H
+#endif // MAINWINDOW_H
