@@ -20,13 +20,11 @@ gcov_report:
 	@./tests
 	@lcov -t "test" -o test.info -c -d .
 	@genhtml -o report test.info
-	open report/src/index.html
+	open report/index.html
 
 check:
-	@cp ../materials/linters/CPPLINT.cfg .
-	@python3 ../materials/linters/cpplint.py --extensions=c *.c *.h
-	@cppcheck --suppress=missingIncludeSystem *.c *.h
-	@CK_FORK=no leaks --atExit -- ./unit_tests	
+	clang-format -n parser.c
+	cppcheck --suppress=missingIncludeSystem *.c *.h
 
 install:
 	@make clean
@@ -43,12 +41,12 @@ dvi:
 	@open dvi.md
 
 dist:
-	@rm -rf Archive_SmartCalc_v1.0/
-	@mkdir Archive_SmartCalc_v1.0/
-	@mkdir Archive_SmartCalc_v1.0/src
-	@mv ./build_calk/restest.app Archive_SmartCalc_v1.0/src/
-	@tar cvzf Archive_SmartCalc_v1.0.tgz Archive_SmartCalc_v1.0/
-	@rm -rf Archive_SmartCalc_v1.0/
+	@rm -rf Archive_3D_Viewer_v1.0/
+	@mkdir Archive_3D_Viewer_v1.0/
+	@mkdir Archive_3D_Viewer_v1.0/src
+	@cp ./Viewer Archive_3D_Viewer_v1.0/src/
+	@tar cvzf Archive_3D_Viewer_v1.0.tgz Archive_3D_Viewer_v1.0/
+	@rm -rf Archive_3D_Viewer_v1.0/
 
 clean:
 	@rm -rf *.o *.a *.cpp mainwindow.h  mainwindow.ui *.gcda *.gcno report *.out tests test.info
