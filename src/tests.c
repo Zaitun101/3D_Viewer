@@ -67,6 +67,7 @@ START_TEST(scale) {
   for (int i = 0; i < obj.count_vert; i++) {
     ck_assert_double_eq(obj.vertexes[i], test_array[i] * 2);
   }
+  free(obj.vertexes);
   free(obj.facets);
 }
 END_TEST
@@ -86,6 +87,7 @@ START_TEST(move) {
   for (int i = 0; i < obj.count_vert; i++) {
     ck_assert_double_eq(obj.vertexes[i], test_array[i] + 1);
   }
+  free(obj.vertexes);
   free(obj.facets);
 }
 END_TEST
@@ -133,6 +135,7 @@ START_TEST(rotate) {
   for (int i = 0; i < obj.count_vert; i++) {
     ck_assert_double_eq(obj.vertexes[i], test_array[i]);
   }
+  free(obj.vertexes);
   free(obj.facets);
 }
 END_TEST
